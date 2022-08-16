@@ -10,7 +10,7 @@
         <span>分类</span>
       </router-link>
       <router-link class="nav-list-item" to="cart">
-        <i class="shopping-cart-o"></i>
+        <van-icon name="shopping-cart-o" />
         <span>购物车</span>
       </router-link>
       <router-link class="nav-list-item" to="user">
@@ -18,7 +18,6 @@
         <span>我的</span>
       </router-link>
     </ul>
-
   </div>
 </template>
 
@@ -26,7 +25,8 @@
 
 </script>
 
-<style lang="less" scoped>
+
+<style lang="less" scoped >
 @import '../common/style/mixin';
 
 .nav-bar {
@@ -39,6 +39,7 @@
   background: #fff;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+
 
   .nav-list {
     width: 100%;
