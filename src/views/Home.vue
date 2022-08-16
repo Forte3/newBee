@@ -1,11 +1,17 @@
 <template>
   <div>
-    home
+    <nav-bar></nav-bar>
   </div>
 </template>
 
-<script setup>
+<script>
+import navBar from '@/components/NavBar.vue'
 
+export default {
+  components: {
+    navBar
+  }
+}
 </script>
 
 <style scoped>
