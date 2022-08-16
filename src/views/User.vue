@@ -1,12 +1,22 @@
 <template>
-  <div>
-    user
+  <div class="home">
+    <div>你好</div>
   </div>
 </template>
 
-<script setup>
-
+<script>
+export default {
+  name: 'Home'
+}
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.home {
+  div {
+    background: greenyellow;
+    width: 75px;
+    height: 75px;
+    font-size: 18PX;
+  }
+}
 </style>
