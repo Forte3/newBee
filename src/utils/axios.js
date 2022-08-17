@@ -21,6 +21,7 @@ axios.interceptors.response.use(res => {
     if (res.data.message) Toast.fail(res.data.message)
     if (res.data.resultCode == 416) {
       router.push({ path: '/login' })
+
     }
     if (res.data.data && window.location.hash == '#/login') {
       setLocal('token', res.data.data)

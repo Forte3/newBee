@@ -21,7 +21,7 @@ export default {
     },
     back: {
       type: String,
-      default: false
+      default: ''
     }
   },
   emits: ['callback'],

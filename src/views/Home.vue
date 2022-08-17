@@ -6,10 +6,8 @@
 
 <script>
 import navBar from '@/components/NavBar.vue'
-
 export default {
   setup() {
-
   },
   components: {
     navBar

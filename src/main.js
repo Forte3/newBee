@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import router from './router/routes.js'
 import App from './App.vue'
 import 'amfe-flexible'
+// import 'vant/lib/index.css';
+import 'vant/es/toast/style';
 
 import { Icon, Button, Toast, Form, Field, Skeleton } from 'vant'
 
