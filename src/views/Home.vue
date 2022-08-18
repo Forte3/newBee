@@ -15,16 +15,67 @@
     <!-- 轮播图 -->
     <swiper :list="swiperList"></swiper>
 
+    <div class="category-list">
+      <div v-for="item in categoryList" :key="item.categoryId" @click="tips">
+        <img :src="item.imgUrl" />
+        <span>{{ item.name }}</span>
+      </div>
+    </div>
+
+    <div class="good">
+      <header class="good-header">新品上线</header>
+      <van-skeleton title :row="3" :loading="loading">
+        <div class="good-box">
+          <div class="good-item" v-for="item in newGoodses" :key="item.goodsId" @click="goToDetail(item)">
+            <img :src="$filters.prefix(item.goodsCoverImg)" />
+            <div class="good-desc">
+              <div class="title">{{ item.goodsName }}</div>
+              <div class="price">¥ {{ item.sellingPrice }}</div>
+            </div>
+          </div>
+        </div>
+      </van-skeleton>
+    </div>
+    <div class="good">
+      <header class="good-header">热门商品</header>
+      <van-skeleton title :row="3" :loading="loading">
+        <div class="good-box">
+          <div class="good-item" v-for="item in hots" :key="item.goodsId" @click="goToDetail(item)">
+            <img :src="$filters.prefix(item.goodsCoverImg)" />
+            <div class="good-desc">
+              <div class="title">{{ item.goodsName }}</div>
+              <div class="price">¥ {{ item.sellingPrice }}</div>
+            </div>
+          </div>
+        </div>
+      </van-skeleton>
+    </div>
+    <div class="good" :style="{ paddingBottom: '100px' }">
+      <header class="good-header">最新推荐</header>
+      <van-skeleton title :row="3" :loading="loading">
+        <div class="good-box">
+          <div class="good-item" v-for="item in recommends" :key="item.goodsId" @click="goToDetail(item)">
+            <img :src="$filters.prefix(item.goodsCoverImg)" />
+            <div class="good-desc">
+              <div class="title">{{ item.goodsName }}</div>
+              <div class="price">¥ {{ item.sellingPrice }}</div>
+            </div>
+          </div>
+        </div>
+      </van-skeleton>
+    </div>
+
     <nav-bar></nav-bar>
   </div>
 </template>
 
 <script>
-import { reactive, onMounted, toRefs } from 'vue'
+import { reactive, onMounted, toRefs, nextTick } from 'vue'
 import navBar from '@/components/NavBar.vue'
 import swiper from '@/components/Swiper.vue'
 import { getHome } from '@/service/home'
 import { Toast } from 'vant'
+import router from '../router/routes'
 export default {
   setup() {
     const state = reactive({
@@ -34,12 +85,53 @@ export default {
       hots: [],
       newGoodses: [],
       recommends: [],
-      categoryList: [],
+      categoryList: [
+        {
+          name: '新蜂超市',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png',
+          categoryId: 100001
+        }, {
+          name: '新蜂服饰',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E6%9C%8D%E9%A5%B0%402x.png',
+          categoryId: 100003
+        }, {
+          name: '全球购',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E7%90%83%E8%B4%AD%402x.png',
+          categoryId: 100002
+        }, {
+          name: '新蜂生鲜',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%94%9F%E9%B2%9C%402x.png',
+          categoryId: 100004
+        }, {
+          name: '新蜂到家',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%88%B0%E5%AE%B6%402x.png',
+          categoryId: 100005
+        }, {
+          name: '充值缴费',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%85%E5%80%BC%402x.png',
+          categoryId: 100006
+        }, {
+          name: '9.9元拼',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/9.9%402x.png',
+          categoryId: 100007
+        }, {
+          name: '领劵',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E9%A2%86%E5%88%B8%402x.png',
+          categoryId: 100008
+        }, {
+          name: '省钱',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%9C%81%E9%92%B1%402x.png',
+          categoryId: 100009
+        }, {
+          name: '全部',
+          imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E9%83%A8%402x.png',
+          categoryId: 100010
+        }
+      ],
       loading: true
     })
 
     onMounted(async () => {
-
       Toast.loading({
         message: '加载中',
         forbidClick: true
@@ -47,12 +139,32 @@ export default {
 
       const { data } = await getHome()
       state.swiperList = data.carousels
-
+      state.newGoodses = data.newGoodses
+      state.hots = data.hotGoodses
+      state.recommends = data.recommendGoodses
+      state.loading = false
       Toast.clear()
     })
 
+    nextTick(() => {
+      window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+        scrollTop > 100 ? state.headerScroll = true : state.headerScroll = false
+      })
+    })
+
+    const goToDetail = (item) => {
+      router.push({ path: `'/product/${item.goodsId}'` })
+    }
+
+    const tips = () => {
+      Toast('敬请期待')
+    }
+
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      goToDetail,
+      tips
     }
 
   },
@@ -123,6 +235,76 @@ export default {
       font-size: 12px;
       color: #666;
       line-height: 21px;
+    }
+  }
+}
+
+.category-list {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-bottom: 13px;
+  font-size: 12px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    text-align: center;
+
+    img {
+      .wh(36px, 36px);
+      margin: 13px auto 8px auto;
+    }
+  }
+}
+
+.good {
+  .good-header {
+    background: #f9f9f9;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: @primary;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .good-box {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .good-item {
+      box-sizing: border-box;
+      width: 50%;
+      border-bottom: 1px solid #e9e9e9;
+      padding: 10px 10px;
+
+      img {
+        display: block;
+        width: 120px;
+        margin: 0 auto;
+      }
+
+      .good-desc {
+        text-align: center;
+        font-size: 14px;
+        padding: 10px 0;
+
+        .title {
+          color: #222333;
+        }
+
+        .price {
+          color: @primary;
+        }
+      }
+
+      &:nth-child(2n+1) {
+        border-right: 1px solid #e9e9e9;
+      }
     }
   }
 }

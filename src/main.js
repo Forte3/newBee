@@ -9,6 +9,18 @@ import { Icon, Button, Toast, Form, Field, Skeleton, Swipe, SwipeItem } from 'va
 
 const app = createApp(App)
 
+// 全局过滤器
+app.config.globalProperties.$filters = {
+  prefix(url) {
+    if (url && url.startsWith('http')) {
+      return url
+    } else {
+      url = `http://backend-api-01.newbee.ltd${url}`
+      return url
+    }
+  }
+}
+
 app.use(Icon).use(Button).use(Toast).use(Form).use(Field).use(Skeleton).use(Swipe).use(SwipeItem)
 
 app.use(router)
