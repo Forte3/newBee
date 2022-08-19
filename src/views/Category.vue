@@ -231,14 +231,4 @@ export default {
     }
   }
 }
-
-.fade-out-enter-active,
-.fade-out-leave-active {
-  // transition: opacity 0.5s;
-}
-
-.fade-out-enter,
-.fade-out-leave-to {
-  // opacity: 0;
-}
 </style>
