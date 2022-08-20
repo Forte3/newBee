@@ -24,13 +24,20 @@
 <script>
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+import { getLocal } from '@/common/js/utils'
 
 export default {
   setup() {
     const store = useStore()
+    const route = useRoute()
 
     onMounted(() => {
-      store.dispatch('updateCart')
+      const token = getLocal('token')
+      const path = route.path
+      if (token && !['/home', '/category'].includes(path)) {
+        store.dispatch('updateCart')
+      }
     })
 
     const count = computed(() => {

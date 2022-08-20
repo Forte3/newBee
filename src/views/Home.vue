@@ -75,9 +75,15 @@ import navBar from '@/components/NavBar.vue'
 import swiper from '@/components/Swiper.vue'
 import { getHome } from '@/service/home'
 import { Toast } from 'vant'
-import router from '../router/routes'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { getLocal } from '@/common/js/utils'
+
+
 export default {
   setup() {
+    const router = useRouter()
+    const store = useStore()
     const state = reactive({
       swiperList: [],
       isLogin: false,
@@ -132,6 +138,11 @@ export default {
     })
 
     onMounted(async () => {
+      const token = getLocal('token')
+      if (token) {
+        state.isLogin = true
+        store.dispatch('updateCart')
+      }
       Toast.loading({
         message: '加载中',
         forbidClick: true
@@ -237,6 +248,22 @@ export default {
       line-height: 21px;
     }
   }
+
+  .icon-iconyonghu {
+    color: #fff;
+    font-size: 22px;
+  }
+
+  .login {
+    color: @primary;
+    line-height: 52px;
+
+    .van-icon-manager-o {
+      font-size: 20px;
+      vertical-align: -3px;
+    }
+  }
+
 }
 
 .category-list {
