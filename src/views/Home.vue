@@ -154,7 +154,7 @@ export default {
     })
 
     const goToDetail = (item) => {
-      router.push({ path: `'/product/${item.goodsId}'` })
+      router.push({ path: `/product/${item.goodsId}` })
     }
 
     const tips = () => {

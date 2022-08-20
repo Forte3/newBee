@@ -10,7 +10,7 @@
         <span>分类</span>
       </router-link>
       <router-link class="nav-list-item" to="cart">
-        <van-icon name="shopping-cart-o" />
+        <van-icon name="shopping-cart-o" :badge="!count ? '' : count" />
         <span>购物车</span>
       </router-link>
       <router-link class="nav-list-item" to="user">
@@ -22,7 +22,26 @@
 </template>
 
 <script>
+import { computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
+export default {
+  setup() {
+    const store = useStore()
+
+    onMounted(() => {
+      store.dispatch('updateCart')
+    })
+
+    const count = computed(() => {
+      return store.state.cartCount
+    })
+
+    return {
+      count
+    }
+  }
+}
 </script>
 
 

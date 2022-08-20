@@ -1,11 +1,12 @@
 import { createApp } from 'vue'
 import router from './router/routes.js'
+import store from './store'
 import App from './App.vue'
 import 'amfe-flexible'
 // import 'vant/lib/index.css';
 import 'vant/es/toast/style';
 
-import { Icon, Button, Toast, Form, Field, Skeleton, Swipe, SwipeItem, Tab, Tabs, PullRefresh, List } from 'vant'
+import { Icon, Button, Toast, Form, Field, Skeleton, Swipe, SwipeItem, Tab, Tabs, PullRefresh, List, ActionBar, ActionBarIcon, ActionBarButton } from 'vant'
 
 const app = createApp(App)
 
@@ -21,8 +22,9 @@ app.config.globalProperties.$filters = {
   }
 }
 
-app.use(Icon).use(Button).use(Toast).use(Form).use(Field).use(Skeleton).use(Swipe).use(SwipeItem).use(Tab).use(Tabs).use(PullRefresh).use(List)
+app.use(Icon).use(Button).use(Toast).use(Form).use(Field).use(Skeleton).use(Swipe).use(SwipeItem).use(Tab).use(Tabs).use(PullRefresh).use(List).use(ActionBar).use(ActionBarIcon).use(ActionBarButton)
 
 app.use(router)
+app.use(store)
 app.mount('#app')
 

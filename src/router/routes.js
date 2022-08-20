@@ -54,6 +54,14 @@ const router = createRouter({
       meta: {
         index: 2
       }
+    },
+    {
+      path: '/product/:id',
+      name: 'product',
+      component: () => import('../views/ProductDetail.vue'),
+      meta: {
+        index: 3
+      }
     }
   ]
 })
