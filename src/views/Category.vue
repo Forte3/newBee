@@ -76,11 +76,16 @@ export default {
       router.push({ path: '/product-list', query: { categoryId: item.categoryId } })
     }
 
+    const goHome = () => {
+      router.push({ path: '/home' })
+    }
+
     return {
       ...toRefs(state),
       selectMenu,
       searchWrap,
-      selectProduct
+      selectProduct,
+      goHome
     }
 
   },
