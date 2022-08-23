@@ -70,6 +70,14 @@ const router = createRouter({
       meta: {
         index: 2
       }
+    },
+    {
+      path: '/address',
+      name: 'address',
+      component: () => import('../views/Address.vue'),
+      meta: {
+        index: 2
+      }
     }
   ]
 })

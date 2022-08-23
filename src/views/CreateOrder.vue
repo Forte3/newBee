@@ -70,7 +70,9 @@ export default {
 
     const init = async () => {
       Toast.loading({ message: '加载中...', forbidClick: true })
+      // 获取查询参数内的 id
       const { addressId, cartItemIds } = route.query
+      // id 会本地存储，如果查询字符串 id 会优先获取，若没有则获取本地存储的 ids
       const _cartItemIds = cartItemIds ? JSON.parse(cartItemIds) : JSON.parse(getLocal('cartItemIds'))
       setLocal('cartItemIds', JSON.stringify(_cartItemIds))
       const { data: list } = await getByCartItemIds({ cartItemIds: _cartItemIds.join(',') })
