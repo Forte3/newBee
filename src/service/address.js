@@ -4,11 +4,11 @@ export function addAddress(params) {
   return axios.post('/address', params)
 }
 
-export function EditAddress(params) {
+export function editAddress(params) {
   return axios.put('/address', params)
 }
 
-export function DeleteAddress(id) {
+export function deleteAddress(id) {
   return axios.delete(`/address/${id}`)
 }
 
