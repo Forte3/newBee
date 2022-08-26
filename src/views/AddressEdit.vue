@@ -67,7 +67,7 @@ export default {
             const provinceIndex = province.findIndex(item => item.id.substr(0, 2) == id.substring(0, 2))
             // 找到区对应的几个市区
             const cityItem = Object.entries(state.areaList.city_list).filter(([cityId, cityName]) => cityId.substring(0, 4) == id.substring(0, 4))[0]
-            // 对比找到的省区和接口返回的省份是否相等，因为 有一些区和 会重名 
+            // 对比找到的省区和接口返回的省份是否相等，因为有一些区和会重名 
             if (province[provinceIndex].text == addressDetail.provinceName && cityItem[1] == addressDetail.cityName) {
               _areaCode = id
             }
