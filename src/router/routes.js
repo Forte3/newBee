@@ -78,7 +78,7 @@ const router = createRouter({
       meta: {
         index: 2
       }
-    }
+    },
     {
       path: '/address',
       name: 'address',
