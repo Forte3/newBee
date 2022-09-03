@@ -112,6 +112,7 @@ export default {
         Toast.fail('请选择商品进行结算')
         return
       }
+      // 将js数据结构转换为后台需要的JSON数据结构
       const params = JSON.stringify(state.result)
       router.push({ path: '/create-order', query: { cartItemIds: params } })
     }
