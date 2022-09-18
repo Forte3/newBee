@@ -2,6 +2,7 @@
   <div class="login">
     <s-header :name="type == 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
     <img class="logo" src="https://s.yezgea02.com/1604045825972/newbee-mall-vue3-app-logo.png" alt="">
+
     <div v-if="type == 'login'" class="login-body login">
       <van-form @submit="onSubmit">
         <van-field v-model="username" name="username" label="用户名" placeholder="用户名"
@@ -19,6 +20,7 @@
         </div>
       </van-form>
     </div>
+
     <div v-else class="login-body register">
       <van-form @submit="onSubmit">
         <van-field v-model="username1" name="username1" label="用户名" placeholder="用户名"
@@ -69,7 +71,7 @@ export default {
 
     // 提交登录或注册表单
     const onSubmit = async (values) => {
-      console.log('verifyRef.value.imgCode', verifyRef.value.imgCode)
+      // console.log('verifyRef.value.imgCode', verifyRef.value.imgCode)
       state.imgCode = verifyRef.value.imgCode || ''
       if (state.verify.toLowerCase() != state.imgCode.toLowerCase()) {
         Toast.fail('验证码错误')
