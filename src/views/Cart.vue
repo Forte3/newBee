@@ -14,7 +14,7 @@
               </div>
               <div class="good-btn">
                 <div class="price">¥{{ item.sellingPrice }}</div>
-                <van-stepper integer :min="0" :max="10" :model-value="item.goodsCount" :name="item.cartItemId"
+                <van-stepper integer :min="1" :max="10" :model-value="item.goodsCount" :name="item.cartItemId"
                   async-change @change="onChange" />
               </div>
             </div>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { reactive, onMounted, computed, toRefs, initCustomFormatter } from 'vue'
+import { reactive, onMounted, computed, toRefs } from 'vue'
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex'
 import { Toast } from 'vant'
@@ -80,7 +80,7 @@ export default {
     })
 
     const goBack = () => {
-      router.push(-1)
+      router.go(-1)
     }
 
     const goTo = () => {
@@ -92,7 +92,11 @@ export default {
         Toast.fail('超出单个商品的最大购买数量')
         return
       }
-      if (state.list.filter(item.cartItemId == detail.name)[0].goodsCount == value) return
+      // if (value < 1) {
+      //   Toast.fail('商品数量不能再减少')
+      //   return
+      // }
+      // if (state.list.filter(item.cartItemId == detail.name)[0].goodsCount == value) return
       Toast.loading({ message: '修改中...', forbidClick: true })
       const params = {
         cartItemId: detail.name,
